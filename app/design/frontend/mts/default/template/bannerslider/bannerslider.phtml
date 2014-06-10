@@ -1,0 +1,277 @@
+<?php
+	$i = 0;
+	$enable = Mage::helper("ExtraConfig")->themeOptions('enable');
+?>
+
+
+
+<?php if($enable == '1') { ?>
+<?php $bannerCollection = $this->getBannerCollection(); ?>
+<?php $configData = Mage::getStoreConfig('bannerslider'); ?>
+<div class="clear"></div>
+
+<div class="banner">
+	
+	<ul class="bxslider">
+		
+			   <?php
+	foreach ($bannerCollection as $banner):
+	?>
+		
+		<li>
+			    <a href="<?php echo $banner['weblink'];?>"><img src=" <?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename']?>" /></a>
+			    
+				<?php if ($configData['settings']['show_description'] == '1' && $banner['content'] != ""):?>
+					<div class="flex-container">	
+					<div class="container">
+				
+						<div class="summer_box">
+							
+							<div class="contenttextbox">
+							<div class="text_box">
+								
+								<h2><?php echo $banner['title']?></h2>
+								
+								
+								<p><?php echo $banner['content']; ?></p>
+								
+								<a href="<?php echo $banner['weblink'];?>" class="button" title="READ MORE"><?php echo $this->__('View More') ?></a>
+							 
+							</div>
+							</div>
+						</div>	
+					</div>
+					</div>
+				<?php endif;?>
+		</li>
+		
+		 <?php
+					$i++;
+					endforeach;
+			?>
+				
+	</ul>		    
+			   
+</div>
+<div class="clear"></div>
+   
+<script>
+	
+var vSlide = <?php echo $configData['settings']['time_delay']; ?>;
+var vPause = <?php echo $configData['settings']['pause']; ?>;
+var vEffect = '<?php echo $configData['settings']['effect']?>';
+var vMode = '<?php echo $configData['settings']['mode']; ?>';
+
+j$('.bxslider').bxSlider({
+	mode: vMode,
+	useCSS: false,
+	easing: vEffect,
+	speed: vSlide,
+	pause: vPause,
+	auto: true,
+	pager: false,
+	adaptiveHeight: true,
+	onSliderLoad: function(){
+		j$('.flex-container').addClass('active');		
+	},
+	onSlideAfter: function(){
+		j$('.flex-container').addClass('active');			
+	},
+	onSlideBefore:function(){
+		j$('.flex-container').removeClass('active');
+	}
+});
+</script>
+    
+<?php } elseif($enable == '2') { ?>
+<?php
+$helper = Mage::helper('cms');
+$processor = $helper->getBlockTemplateProcessor();
+?>
+<?php $bannerCollection = Peerforest_Revolutionslider_Block_Revolutionslider::getBannerCollection(); ?>
+<?php $configData = Mage::getStoreConfig('revolutionslider'); ?>
+<div class="bannercontainer responsive">
+<div class="banner">
+	
+	<ul>
+		
+			   <?php
+	foreach ($bannerCollection as $banner):
+	?>
+		
+		<li <?php if($banner['data_transition'] != '' && $banner['data_transition'] != null){ ?>data-transition="<?php echo $banner['data_transition']; ?>"<?php } ?> <?php if($banner['data_slotamount'] != '' && $banner['data_slotamount'] != null){ ?>data-slotamount="<?php echo $banner['data_slotamount']; ?>"<?php } ?> <?php if($banner['data_masterspeed'] != '' && $banner['data_masterspeed'] != null){ ?>data-masterspeed="<?php echo $banner['data_masterspeed']; ?>"<?php } ?> <?php if($banner['data_delay'] != '' && $banner['data_delay'] != null){ ?>data-delay="<?php echo $banner['data_delay']; ?>"<?php } ?>>
+			    <a href="<?php echo $banner['weblink'];?>" target="_blank"><img src=" <?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename']?>" /></a>
+			    
+				
+								
+						<?php if ($configData['setting']['show_description'] == '1'):?>
+							<?php echo $processor->filter($banner['text']); ?>
+						<?php endif;?>	
+								
+				
+		</li>
+		
+		 <?php
+					$i++;
+					endforeach;
+			?>
+				
+	</ul>		    
+			   
+</div>
+</div>
+   
+<script>
+var delay = '<?php echo $configData['setting']['delay'] ?>';
+if(delay == '' || delay == null)
+	delay = '5000';
+
+var height = '<?php echo $configData['setting']['height'] ?>';
+if(height == '' || height == null)
+	height = '350';
+	
+//var width = '<?php echo $configData['setting']['width'] ?>';
+//if(width == '' || width == null)
+//	width = '1178';
+	
+var hidethumbs = '<?php echo $configData['setting']['hidethumbs'] ?>';
+if(hidethumbs == '' || hidethumbs == null)
+	hidethumbs = '200';
+	
+var thumbwidth = '<?php echo $configData['setting']['thumbwidth'] ?>';
+if(thumbwidth == '' || thumbwidth == null)
+	thumbwidth = '100';
+	
+var thumbheight = '<?php echo $configData['setting']['thumbheight'] ?>';
+if(thumbheight == '' || thumbheight == null)
+	thumbheight = '50';
+	
+var thumbamount = '<?php echo $configData['setting']['thumbamount'] ?>';
+if(thumbamount == '' || thumbamount == null)
+	thumbamount = '3';
+	
+var navigationtype = '<?php echo $configData['setting']['navigationtype'] ?>';
+
+var navigationarrows = '<?php echo $configData['setting']['navigationarrows'] ?>';
+
+var navigationstyle = '<?php echo $configData['setting']['navigationstyle'] ?>';
+
+var navigationhalign = '<?php echo $configData['setting']['navigationhalign'] ?>';
+
+var navigationvalign = '<?php echo $configData['setting']['navigationvalign'] ?>';
+
+var navigationhoffset = '<?php echo $configData['setting']['navigationhoffset'] ?>';
+if(navigationhoffset == '' || navigationhoffset == null)
+	navigationhoffset = '0';
+	
+var navigationvoffset = '<?php echo $configData['setting']['navigationvoffset'] ?>';
+if(navigationvoffset == '' || navigationvoffset == null)
+	navigationvoffset = '20';
+	
+var soloarrowlefthalign = '<?php echo $configData['setting']['soloarrowlefthalign'] ?>';
+
+var soloarrowleftvalign = '<?php echo $configData['setting']['soloarrowleftvalign'] ?>';
+
+var soloarrowlefthoffset = '<?php echo $configData['setting']['soloarrowlefthoffset'] ?>';
+if(soloarrowlefthoffset == '' || soloarrowlefthoffset == null)
+	soloarrowlefthoffset = '20';
+	
+var soloarrowleftvoffset = '<?php echo $configData['setting']['soloarrowleftvoffset'] ?>';
+if(soloarrowleftvoffset == '' || soloarrowleftvoffset == null)
+	soloarrowleftvoffset = '0';
+	
+var soloarrowrighthalign = '<?php echo $configData['setting']['soloarrowrighthalign'] ?>';
+
+var soloarrowrightvalign = '<?php echo $configData['setting']['soloarrowrightvalign'] ?>';
+
+var soloarrowrighthoffset = '<?php echo $configData['setting']['soloarrowrighthoffset'] ?>';
+if(soloarrowrighthoffset == '' || soloarrowrighthoffset == null)
+	soloarrowrighthoffset = '20';
+	
+var soloarrowrightvoffset = '<?php echo $configData['setting']['soloarrowrightvoffset'] ?>';
+if(soloarrowrightvoffset == '' || soloarrowrightvoffset == null)
+	soloarrowrightvoffset = '0';
+	
+var touchenabled = '<?php echo $configData['setting']['touchenabled'] ?>';
+
+var onhoverstop = '<?php echo $configData['setting']['onhoverstop'] ?>';
+
+var stopatslide = '<?php echo $configData['setting']['stopatslide'] ?>';
+if(stopatslide == '' || stopatslide == null)
+	stopatslide = '-1';
+	
+var stopafterloops = '<?php echo $configData['setting']['stopafterloops'] ?>';
+if(stopafterloops == '' || stopafterloops == null)
+	stopafterloops = '-1';
+	
+var hidecaptionatlimit = '<?php echo $configData['setting']['hidecaptionatlimit'] ?>';
+if(hidecaptionatlimit == '' || hidecaptionatlimit == null)
+	hidecaptionatlimit = '0';
+	
+var hideallcaptionatlilmit = '<?php echo $configData['setting']['hideallcaptionatlilmit'] ?>';
+if(hideallcaptionatlilmit == '' || hideallcaptionatlilmit == null)
+	hideallcaptionatlilmit = '0';
+	
+var hideslideratlimit = '<?php echo $configData['setting']['hideslideratlimit'] ?>';
+if(hideslideratlimit == '' || hideslideratlimit == null)
+	hideslideratlimit = '0';
+	
+var shadow = '<?php echo $configData['setting']['shadow'] ?>';
+if(shadow == '' || shadow == null)
+	shadow = '0';
+
+	
+j$('.banner').revolution({
+	delay:delay,
+	startheight:height,
+	startwidth:1178,
+	
+	hideThumbs:hidethumbs,
+
+	thumbWidth:thumbwidth,					
+	thumbHeight:thumbheight,
+	thumbAmount:thumbamount,
+
+	navigationType:navigationtype,			
+	navigationArrows:navigationarrows,			
+
+	navigationStyle:navigationstyle,			
+
+	navigationHAlign:navigationhalign,			
+	navigationVAlign:navigationvalign,			
+	navigationHOffset:navigationhoffset,
+	navigationVOffset:navigationvoffset,
+
+	soloArrowLeftHalign:soloarrowlefthalign,
+	soloArrowLeftValign:soloarrowleftvalign,
+	soloArrowLeftHOffset:soloarrowlefthoffset,
+	soloArrowLeftVOffset:soloarrowleftvoffset,
+
+	soloArrowRightHalign:soloarrowrighthalign,
+	soloArrowRightValign:soloarrowrightvalign,
+	soloArrowRightHOffset:soloarrowrighthoffset,
+	soloArrowRightVOffset:soloarrowrightvoffset,
+
+	touchenabled:touchenabled,	
+	onHoverStop:onhoverstop,	
+
+
+	stopAtSlide:stopatslide,		
+	stopAfterLoops:stopafterloops,	
+
+	hideCaptionAtLimit:hidecaptionatlimit,	
+	hideAllCaptionAtLilmit:hideallcaptionatlilmit,
+	hideSliderAtLimit:hideslideratlimit,	
+
+	shadow:shadow,		
+	fullWidth:"off",
+	fullScreen:"off"
+										
+});
+
+	
+
+
+</script>
+
+<?php } ?>    
